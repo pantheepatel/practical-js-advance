@@ -1,0 +1,42 @@
+:root {
+    padding: 1rem;
+}
+
+.card {
+    height: 25rem;
+}
+
+.card-img-top {
+    min-height: 8rem;
+    max-height: 8rem;
+    object-fit: contain;
+    border-bottom: 1.5px solid grey;
+}
+
+.card-title,
+.copyText {
+    -webkit-line-clamp: 1;
+}
+
+.card-desc {
+    -webkit-line-clamp: 3;
+}
+
+.card-desc,
+.card-title,
+.copyText {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.copyText {
+    user-select: all;
+}
+
+.noDataImg {
+    height: 50vh;
+    width: auto;
+    margin: auto;
+    margin-top: 2rem;
+}

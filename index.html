@@ -1,11 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Product Management-Home</title>
 </head>
+
 <body>
-    
+
+    <!-- btns like add, sort(Id, Name, Price), filter(Id) -->
+    <header>
+        <div class="container-fluid d-block d-sm-flex align-items-center justify-content-between">
+
+            <!-- filter - input type num(ID) -->
+            <!-- FIXME: validation for no product found for entered id, -->
+            <div class="">
+                <div class="d-flex input-group">
+                    <label for="filter" class="btn btn-primary input-group-text d-flex gap-1 align-items-baseline">
+                        Filter(ID)
+                        <i class="fa-solid fa-filter"></i>
+                    </label>
+                    <input type="text" name="filter" id="filter" class="form-control" placeholder="product id">
+                </div>
+            </div>
+
+            <!-- sorting, add -->
+            <div class="d-flex justify-content-between gap-1 gap-md-4 mt-2 mt-sm-0">
+                <!-- sort - dropdown radio(id, name, price) -->
+                <!-- FIXME: gap bet radio and text, onclick of text should check radio -->
+                <div class="">
+                    <select id="sort" class="btn btn-primary">
+                        <option value="none" selected hidden>Sort</option>
+                        <option value="id">ID</option>
+                        <option value="name">Name</option>
+                        <option value="price">Price</option>
+                    </select>
+                </div>
+
+                <!-- add - newPage form -->
+                <div class="">
+                    <button type="button" class="btn btn-success d-flex align-items-center gap-1" id="addProduct">
+                        Add
+                        <i class="fa-solid fa-plus fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- list of cards to showcase products -->
+    <main>
+        <div class="container-fluid py-2 py-md-4">
+            <div class="row g-3" id="productContainer">
+
+            </div>
+        </div>
+    </main>
+    <footer></footer>
+
+    <script src="script.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"
+        defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"
+        defer></script>
 </body>
+
 </html>
