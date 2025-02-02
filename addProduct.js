@@ -1,3 +1,37 @@
+const urlParams = new URLSearchParams(window.location.search);
+const productId = urlParams.get("id");
+const isViewMode = (urlParams.get("view") === "true");
+const isEditMode = (productId && !isViewMode) ? true : false;
+document.getElementById("formTitle").innerText=`Product ${isViewMode?"View":(isEditMode?"Edit":"Add")} Form`
+// disable all fields for view mode
+if (isViewMode) {
+    console.log("Viewing product");
+    document.querySelectorAll("input, textarea, button").forEach(ele => ele.disabled = true);
+}
+// get product details from localtorage for edit/view
+if (isEditMode || isViewMode) {
+    console.log("Getting product with ID:", productId);
+    const fetchedItem = JSON.parse(localStorage.getItem(productId));
+    console.log(fetchedItem)
+    if (fetchedItem) {
+        // console.log(fetchedItem.name)
+        for (let field in fetchedItem) {
+            let field_ = `product${field.charAt(0).toLocaleUpperCase() + field.slice(1)}`
+            // console.log(field_)
+            let inputElement = document.getElementById(field_);
+            if (inputElement) {
+                console.log(fetchedItem[field])
+                inputElement.value = fetchedItem[field];
+            } else {
+                console.warn(`Field_ ${field_} does not exist in the form`);
+            }
+        }
+    } else {
+        alert("Product not found in LocalStorage.")
+    }
+} else {
+    console.log("Add product page")
+}
 
 function createValidator() {
     const patternURL = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-]*)*$/;
@@ -75,14 +109,25 @@ form_.addEventListener("submit", function (e) {
     if (validateForm()) {
         // FIXME: add this form data into localstorage, also reset only when product is added into localstorage
         // give toaster for not added to localstorage, added successfully
-        try {
-            const id = uuid.v4();
-            localStorage.setItem(id, JSON.stringify(product));
-            alert("Product added successfully.");
-            form_.reset();
-        } catch (error) {
-            console.error("Error adding product to localStorage:", error);
-            alert("There was an error adding the product. Please try again.");
+        if (!isViewMode && !isEditMode) {
+            try {
+                const id = uuid.v4();
+                localStorage.setItem(id, JSON.stringify(product));
+                alert("Product added successfully.");
+                form_.reset();
+            } catch (error) {
+                console.error("Error adding product to localStorage:", error);
+                alert("There was an error adding the product. Please try again.");
+            }
+        } else {
+            try {
+                localStorage.setItem(productId, JSON.stringify(product));
+                alert("Product updated successfully.");
+                form_.reset();
+            } catch (error) {
+                console.error("Error while updating product")
+                alert("There was an error updating the product. Please try again.");
+            }
         }
     }
 });
