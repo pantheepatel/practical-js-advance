@@ -95,22 +95,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     // for both edit and view
     const editProduct = function (id, isView = false) {
-        console.log('in here edit/view : ',id,isView)
+        console.log('in here edit/view : ', id, isView)
         if (isView) { window.location.href = `/addProduct.html?id=${id}&view=true`; }
         else { window.location.href = `/addProduct.html?id=${id}`; }
     }
     const localStorageLength = localStorage.length;
     const items = [];
     function getAllLocalStorageItems() {
-        for (let i = 0; i < localStorageLength; i++) {
-            const key = localStorage.key(i);
-            // console.log(key)
-            const product = JSON.parse(localStorage.getItem(key));
-            if (product) {
-                items.push({ id: key, ...product });
+        if (localStorageLength) {
+            // FIXME: what if user have already stored some data on same url(if that is local url then it would create problem)
+            for (let i = 0; i < localStorageLength; i++) {
+                const key = localStorage.key(i);
+                // console.log(key)
+                const product = JSON.parse(localStorage.getItem(key));
+                if (product) {
+                    items.push({ id: key, ...product });
+                }
             }
+            return items;
+        }else{
+            return 0;
         }
-        return items;
     }
 
     const makeCotainers = function (func = getAllLocalStorageItems()) {
@@ -147,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <p class="card-text copyText">${product.id}</p>
                             <h5 class="card-title">${product.name}</h5>
                             <p class="card-text card-desc">${product.desc}</p>
-                            <p class="card-text"><strong>Price:</strong> $${product.price}</p>
+                            <p class="card-text"><strong>Price:</strong> ${product.price}</p>
                         </div>
                         <div class="card-footer d-flex justify-content-between actionButtons" id="actionButton">
                             <button type="button" class="btn btn-danger" data-id="${product.id}" id="delete-${product.id}">Delete</button>
