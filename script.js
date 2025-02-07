@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("addProduct").addEventListener("click", function () {
         window.location.href = `/addProduct.html`;
@@ -113,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
             return items;
-        }else{
+        } else {
             return 0;
         }
     }

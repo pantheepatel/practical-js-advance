@@ -22,7 +22,7 @@
             <div class="col-12">
                 <div class="input-group">
                     <label for="productName" class="input-group-text">
-                        <i class="fa-solid fa-diamond"></i>
+                        <i class="fa-solid fa-tag"></i>
                     </label>
                     <input type="text" class="form-control" id="productName" placeholder="Product Name">
                 </div>
@@ -49,12 +49,15 @@
             <div class="col-12">
                 <div class="input-group">
                     <label for="productImg" class="input-group-text">
-                        <i class="fa-solid fa-file"></i>
+                        <i class="fa-solid fa-image"></i>
                     </label>
                     <!-- <input type="file" accept="image/*" class="form-control" id="productImg" placeholder="Price"> -->
-                    <input type="url" class="form-control" id="productImg" placeholder="Price">
+                    <input type="url" class="form-control" id="productImg" placeholder="Product Image URL">
                 </div>
                 <span id="imgError" class="requiredError text-danger"></span>
+            </div>
+            <div class="col-12">
+                <img id="viewImg">
             </div>
             <!-- submit reset -->
             <div class="d-flex justify-content-between">

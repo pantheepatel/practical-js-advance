@@ -2,7 +2,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const productId = urlParams.get("id");
 const isViewMode = (urlParams.get("view") === "true");
 const isEditMode = (productId && !isViewMode) ? true : false;
-document.getElementById("formTitle").innerText=`Product ${isViewMode?"View":(isEditMode?"Edit":"Add")} Form`
+document.getElementById("formTitle").innerText = `Product ${isViewMode ? "View" : (isEditMode ? "Edit" : "Add")} Form`
 // disable all fields for view mode
 if (isViewMode) {
     console.log("Viewing product");
@@ -20,12 +20,17 @@ if (isEditMode || isViewMode) {
             // console.log(field_)
             let inputElement = document.getElementById(field_);
             if (inputElement) {
-                console.log(fetchedItem[field])
+                // console.log(fetchedItem[field])
                 inputElement.value = fetchedItem[field];
             } else {
                 console.warn(`Field_ ${field_} does not exist in the form`);
             }
         }
+        let imgEle = document.getElementById("viewImg");
+        imgEle.src = fetchedItem.img;
+        imgEle.alt = fetchedItem.productName;
+        console.log("hi")
+        console.log(fetchedItem.productName, fetchedItem.img)
     } else {
         alert("Product not found in LocalStorage.")
     }
