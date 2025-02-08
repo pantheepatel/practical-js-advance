@@ -29,8 +29,9 @@ if (isEditMode || isViewMode) {
         let imgEle = document.getElementById("viewImg");
         imgEle.src = fetchedItem.img;
         imgEle.alt = fetchedItem.productName;
-        console.log("hi")
-        console.log(fetchedItem.productName, fetchedItem.img)
+        // imgEle.classList.add('viewImg')
+        // console.log("hi")
+        // console.log(fetchedItem.productName, fetchedItem.img)
     } else {
         alert("Product not found in LocalStorage.")
     }
@@ -128,7 +129,10 @@ form_.addEventListener("submit", function (e) {
             try {
                 localStorage.setItem(productId, JSON.stringify(product));
                 alert("Product updated successfully.");
-                form_.reset();
+                window.location.reload();
+                // form_.reset();
+                // let imgEle = document.getElementById("viewImg");
+                // imgEle.remove();
             } catch (error) {
                 console.error("Error while updating product")
                 alert("There was an error updating the product. Please try again.");
