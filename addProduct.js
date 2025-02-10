@@ -27,8 +27,10 @@ if (isEditMode || isViewMode) {
             }
         }
         let imgEle = document.getElementById("viewImg");
-        imgEle.src = fetchedItem.img;
-        imgEle.alt = fetchedItem.productName;
+        // imgEle.src = fetchedItem.img;
+        // imgEle.alt = fetchedItem.productName;
+        imgEle.innerHTML = `<img src="${fetchedItem.img}" class="card-img-top" alt="${fetchedItem.name}" onerror="this.onerror=null;this.src='images/no_image.jpg';"/>`
+
         console.log("hi")
         console.log(fetchedItem.productName, fetchedItem.img)
     } else {
@@ -39,7 +41,6 @@ if (isEditMode || isViewMode) {
 }
 
 function createValidator() {
-    const patternURL = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-]*)*$/;
     return {
         required: function (field) {
             return function (value) {
@@ -50,11 +51,6 @@ function createValidator() {
             return function (value) {
                 return !isNaN(value) && value.trim() !== "" ? "" : `${field} must be a number.`;
             };
-        },
-        checkURL: function (field) {
-            return function (value) {
-                return patternURL.test(value);
-            }
         }
     };
 }
@@ -65,7 +61,7 @@ const validatePrice = validator.required("Price");
 const validateDesc = validator.required("Desciption");
 const validateImg = validator.required("Image");
 const validatePriceNum = validator.isNumber("Price");
-const validateImgURL = validator.checkURL("URL");
+const validateImgURL = validator.required("URL");
 class Product {
     constructor(pname, price, desc, img) {
         this.name = pname;
@@ -112,7 +108,6 @@ form_.addEventListener("submit", function (e) {
     const product = validateForm();
     // alert(JSON.stringify(product))
     if (validateForm()) {
-        // FIXME: add this form data into localstorage, also reset only when product is added into localstorage
         // give toaster for not added to localstorage, added successfully
         if (!isViewMode && !isEditMode) {
             try {

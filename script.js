@@ -128,27 +128,23 @@ document.addEventListener("DOMContentLoaded", function () {
             productContainer.innerHTML = ''
             if (dataLength) {
                 data.forEach((item) => {
-                    // console.log(index)
-                    // const key = localStorage.key(index);
-                    // console.log("item id is : ", item.id)
                     const product = item;
-                    // console.log("product with ID:", key, product);
 
                     const productDiv = document.createElement('div');
                     productDiv.classList.add('col-12', 'col-md-4', 'col-lg-3');
 
-                    let imgTag = "";
-                    let local = product.img.includes("fakepath");
-                    console.log(`local : ${local}`)
-                    if (local) {
-                        imgTag += `<img src="images/${product.img}" class="card-img-top" alt="${product.name}">`;
-                    } else {
-                        imgTag += `<img src="${product.img}" class="card-img-top" alt="${product.name}">`
-                    }
+                    // let imgTag = "";
+                    // let local = product.img.includes("fakepath");
+                    // console.log(`local : ${local}`)
+                    // if (local) {
+                    //     imgTag += `<img src="images/${product.img}" class="card-img-top" alt="${product.name}">`;
+                    // } else {
+                    //     imgTag += `<img src="${product.img}" class="card-img-top" alt="${product.name}">`
+                    // }
 
                     productDiv.innerHTML = `
                     <div class="card">
-                        ${imgTag}
+                        <img src="${product.img}" class="card-img-top" alt="${product.name}" onerror="this.onerror=null;this.src='images/no_image.jpg';">
                         <div class="card-body">
                             <p class="card-text copyText">${product.id}</p>
                             <h5 class="card-title">${product.name}</h5>
