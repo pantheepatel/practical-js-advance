@@ -14,26 +14,17 @@ if (isEditMode || isViewMode) {
     const fetchedItem = JSON.parse(localStorage.getItem(productId));
     console.log(fetchedItem)
     if (fetchedItem) {
-        // console.log(fetchedItem.name)
         for (let field in fetchedItem) {
             let field_ = `product${field.charAt(0).toLocaleUpperCase() + field.slice(1)}`
-            // console.log(field_)
             let inputElement = document.getElementById(field_);
             if (inputElement) {
-                // console.log(fetchedItem[field])
                 inputElement.value = fetchedItem[field];
             } else {
                 console.warn(`Field_ ${field_} does not exist in the form`);
             }
         }
         let imgEle = document.getElementById("viewImg");
-        // imgEle.src = fetchedItem.img;
-        // imgEle.alt = fetchedItem.productName;
         imgEle.innerHTML = `<img src="${fetchedItem.img}" class="card-img-top" alt="${fetchedItem.name}" onerror="this.onerror=null;this.src='images/no_image.jpg';"/>`
-
-        // imgEle.classList.add('viewImg')
-        // console.log("hi")
-        // console.log(fetchedItem.productName, fetchedItem.img)
     } else {
         alert("Product not found in LocalStorage.")
     }
@@ -80,9 +71,7 @@ function validateForm() {
     // selecting all error span elements
     const errorSpans = document.querySelectorAll(".requiredError");
     errorSpans.forEach(span => (span.innerText = "")); // to clear all previous errors
-
     let errors = 0;
-
     function setError(id, message) {
         if (message) {
             document.getElementById(id).innerText = message;
@@ -107,7 +96,6 @@ const form_ = document.getElementById("productAddForm");
 form_.addEventListener("submit", function (e) {
     e.preventDefault();
     const product = validateForm();
-    // alert(JSON.stringify(product))
     if (validateForm()) {
         // give toaster for not added to localstorage, added successfully
         if (!isViewMode && !isEditMode) {
@@ -125,9 +113,6 @@ form_.addEventListener("submit", function (e) {
                 localStorage.setItem(productId, JSON.stringify(product));
                 alert("Product updated successfully.");
                 window.location.reload();
-                // form_.reset();
-                // let imgEle = document.getElementById("viewImg");
-                // imgEle.remove();
             } catch (error) {
                 console.error("Error while updating product")
                 alert("There was an error updating the product. Please try again.");

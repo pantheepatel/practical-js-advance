@@ -1,33 +1,8 @@
-
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("addProduct").addEventListener("click", function () {
         window.location.href = `/addProduct.html`;
     });
-
-    // const editButton = document.getElementById("editProduct");
-    // if (editButton) {
-    //     editButton.addEventListener("click", function () {
-    //         const id = this.getAttribute("id").split("-")[1];
-    //         console.log("in edit")
-    //         editProduct(id)
-    //         // window.location.href = `/addProduct.html?id=${id}`;
-    //     });
-    // }
-
-    // const viewButton = document.getElementById("viewProduct");
-    // if (viewButton) {
-    //     viewButton.addEventListener("click", function () {
-    //         const id = this.getAttribute("id").split("-")[1];
-    //         console.log("in view")
-    //         editProduct(id, true)
-    //         // window.location.href = `/addProduct.html?id=${id}&view=true`;
-    //     });
-    // }
-
-    // FIXME: this is being triggered at every clicking in dom, make it specific to that btn or parent class only
-    // const actionButton = document.getElementById("actionButton");
     document.addEventListener("click", function (event) {
-        // console.log("clicked something ",event.target.id.includes('edit'))
         if (event.target.id.includes("edit")) {
             const id = event.target.getAttribute("data-id");
             editProduct(id);
@@ -44,8 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("somewhere in dom ")
         }
     });
-
-
     const filterById = function (func, delay) {
         let debounceTimer;
         return function (...args) {
@@ -55,20 +28,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     const filterDiv = document.getElementById('filter');
     filterDiv.addEventListener('input', filterById(function () {
-        // console.log("came back after 3 sec")
         const filteredItems = items.filter((item) => {
             return item.id.includes(filterDiv.value.trim());
         })
         makeCotainers(filteredItems);
-        // FIXME: change this time to 3 sec after all completion
     }, 1000))
     const sortDiv = document.getElementById('sort');
     sortDiv.addEventListener('change', function () {
-        // console.log("value is : ", sortDiv.value)
         const sortType = sortDiv.value;
         let sortedItems;
         if (sortType === "id") {
-            sortedItems = items.sort((a, b) => a.id.localeCompare(b.id)); // -1,0,1 //FIXME: watch video for this
+            sortedItems = items.sort((a, b) => a.id.localeCompare(b.id));
         } else if (sortType === "name") {
             sortedItems = items.sort((a, b) => a.name.localeCompare(b.name));
         } else if (sortType === "price") {
@@ -80,12 +50,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const deleteProduct = function (key) {
         try {
             const alertRes = confirm("Sure to delete product?");
-            // console.log(alertRes);
             if (alertRes) {
                 try {
                     localStorage.removeItem(key);
                     location.reload();
-                    // alert("Deleted Successfully!")
                 } catch (error) {
                     alert("Error in deleting product.")
                 }
@@ -104,10 +72,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const items = [];
     function getAllLocalStorageItems() {
         if (localStorageLength) {
-            // FIXME: what if user have already stored some data on same url(if that is local url then it would create problem)
             for (let i = 0; i < localStorageLength; i++) {
                 const key = localStorage.key(i);
-                // console.log(key)
                 const product = JSON.parse(localStorage.getItem(key));
                 if (product) {
                     items.push({ id: key, ...product });
@@ -129,19 +95,8 @@ document.addEventListener("DOMContentLoaded", function () {
             if (dataLength) {
                 data.forEach((item) => {
                     const product = item;
-
                     const productDiv = document.createElement('div');
                     productDiv.classList.add('col-12', 'col-md-4', 'col-lg-3');
-
-                    // let imgTag = "";
-                    // let local = product.img.includes("fakepath");
-                    // console.log(`local : ${local}`)
-                    // if (local) {
-                    //     imgTag += `<img src="images/${product.img}" class="card-img-top" alt="${product.name}">`;
-                    // } else {
-                    //     imgTag += `<img src="${product.img}" class="card-img-top" alt="${product.name}">`
-                    // }
-
                     productDiv.innerHTML = `
                     <div class="card">
                         <img src="${product.img}" class="card-img-top" alt="${product.name}" onerror="this.onerror=null;this.src='images/no_image.jpg';">
